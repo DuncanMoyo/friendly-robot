@@ -1,35 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import React, {useState} from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
 
-import * as Font from 'expo-font'
-import AppLoading from 'expo-app-loading'
+import * as Font from "expo-font";
+import AppLoading from "expo-app-loading";
+import MealsNavigator from "./navigation/MealsNavigator";
 
 const fetchFonts = () => {
   return Font.loadAsync({
-    'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
-    'open-sans': require('./assets/fonts/OpenSans-Regular.ttf')
-  })
-}
+    "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+    "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+  });
+};
 
 export default function App() {
+  const [fontLoaded, setFontLoaded] = useState(false);
 
-  const [fontLoaded, setFontLoaded] = useState(false)
-
-  if(fontLoaded) {
+  if (fontLoaded) {
     return (
-      <AppLoading  startAsync={fetchFonts} onFinish={() => setFontLoaded(true) } />
-    )
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => setFontLoaded(true)}
+      />
+    );
   }
 
   return (
-    <View >
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <MealsNavigator />
   );
 }
 
-const styles = StyleSheet.create({
-
-});
+const styles = StyleSheet.create({});
