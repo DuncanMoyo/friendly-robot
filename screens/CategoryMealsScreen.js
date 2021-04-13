@@ -1,13 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
-
-import {CATEGORIES} from '../data/dummy-data'
+import { View, Text, StyleSheet, Button, Platform } from "react-native";
+import { CATEGORIES } from "../data/dummy-data";
+import Colors from "./constants/Colors";
 
 const CategoryMealsScreen = (props) => {
+  const catId = props.navigation.getParam("categoryId");
 
-  const catId = props.navigation.getParam('categoryId')
-
-  const selectedCategory = CATEGORIES.find(cat => cat.id === catId)
+  const selectedCategory = CATEGORIES.find((cat) => cat.id === catId);
 
   return (
     <View style={styles.screen}>
@@ -19,11 +18,31 @@ const CategoryMealsScreen = (props) => {
           props.navigation.navigate("MealDetail");
         }}
       />
-      <Button  title='Go Back' onPress={() => {
-        props.navigation.pop()
-      }} />
+      <Button
+        title="Go Back"
+        onPress={() => {
+          props.navigation.pop();
+        }}
+      />
     </View>
   );
+};
+
+CategoryMealsScreen.navigationOptions = (navigationData) => {
+  // console.log('====================================');
+  // console.log(navigationData);
+  // console.log('====================================');
+  const catId = navigationData.navigation.getParam("categoryId");
+
+  const selectedCategory = CATEGORIES.find((cat) => cat.id === catId);
+
+  return {
+    headerTitle: selectedCategory.title,
+    headerStyle: {
+      backgroundColor: Platform.OS === "android" ? Colors.primaryColor : "",
+    },
+    headerTintColor: Platform.OS === "android" ? "white" : Colors.primaryColor,
+  };
 };
 
 const styles = StyleSheet.create({
@@ -35,3 +54,4 @@ const styles = StyleSheet.create({
 });
 
 export default CategoryMealsScreen;
+  
